@@ -28,8 +28,18 @@ const GroupedAvatar = styled(Avatar)({
   marginLeft: -12,
 })
 
+const FirstGroupedAvatar = styled(GroupedAvatar)({
+  marginLeft: 1,
+})
+
 const AvatarGroup: React.SFC<AvatarGroupProps> = ({ avatars, size, onMoreClick, ...props }) => {
-  const avatarsToDisplay = avatars.map((avatar, i) => <GroupedAvatar addBorder size={size} key={i} {...avatar} />)
+  const avatarsToDisplay = avatars.map((avatar, i) =>
+    i == 0 ? (
+      <FirstGroupedAvatar addBorder size={size} key={i} {...avatar} />
+    ) : (
+      <GroupedAvatar addBorder size={size} key={i} {...avatar} />
+    ),
+  )
   const count = React.Children.count(avatarsToDisplay)
   const mustSlice = props.maximumToDisplay! < count
 
